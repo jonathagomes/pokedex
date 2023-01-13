@@ -9,8 +9,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast, ToastContainer } from "react-toastify";
 import BeatLoader from "react-spinners/BeatLoader";
 
-import { useTheme } from "next-themes";
-
 import "react-toastify/dist/ReactToastify.min.css";
 
 type FormInput = {
@@ -30,7 +28,6 @@ const delay = (amount = 1500) =>
   new Promise((resolve) => setTimeout(resolve, amount));
 
 const HomePage = () => {
-  const { setTheme } = useTheme();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -44,12 +41,20 @@ const HomePage = () => {
 
   const onSubmit = async ({ email }: FormInput) => {
     setIsLoading(true);
-    setCookie(null, "riderize.pokedex.email", email, {
-      maxAge: 30 * 24 * 60 * 60, // 30 days
-      path: "/",
-    });
+    try {
+      setCookie(null, "riderize.pokedex.email", email, {
+        maxAge: 30 * 24 * 60 * 60, // 30 days
+        path: "/",
+      });
 
-    toast.success("Sucesso!");
+      toast.success("Sucesso!");
+    } catch (error) {
+      toast.error("Error ao salvar email!");
+      await delay(750);
+
+      setIsLoading(false);
+      return;
+    }
 
     await delay();
 
@@ -77,8 +82,6 @@ const HomePage = () => {
       </S.HeaderContainer>
       <S.MainContainer>
         <div>
-          <button onClick={() => setTheme("dark")}>Dark</button>
-          <button onClick={() => setTheme("light")}>Light</button>
           <Image
             src="/img/pokeball.svg"
             alt="Pokebola"

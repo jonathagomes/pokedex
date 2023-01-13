@@ -1,8 +1,5 @@
 import { createGlobalStyle } from "styled-components";
-// #0055d1
-// #00b4ec
-// #dd4b4a
-// #fdfdfd
+
 const GlobalStyles = createGlobalStyle`
   * {
     margin: 0;
