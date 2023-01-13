@@ -9,6 +9,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { toast, ToastContainer } from "react-toastify";
 import BeatLoader from "react-spinners/BeatLoader";
 
+import { useTheme } from "next-themes";
+
 import "react-toastify/dist/ReactToastify.min.css";
 
 type FormInput = {
@@ -22,16 +24,13 @@ const schema = yup.object({
     .required("O e-mail é obrigatório!"),
 });
 
-// #0055d1
-// #00b4ec
-// #dd4b4a
-// #fdfdfd
 import * as S from "./styles";
 
 const delay = (amount = 1500) =>
   new Promise((resolve) => setTimeout(resolve, amount));
 
 const HomePage = () => {
+  const { setTheme } = useTheme();
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
@@ -78,13 +77,14 @@ const HomePage = () => {
       </S.HeaderContainer>
       <S.MainContainer>
         <div>
+          <button onClick={() => setTheme("dark")}>Dark</button>
+          <button onClick={() => setTheme("light")}>Light</button>
           <Image
             src="/img/pokeball.svg"
             alt="Pokebola"
             width={128}
             height={128}
           />
-
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
               type="text"

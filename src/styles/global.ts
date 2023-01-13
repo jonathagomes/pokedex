@@ -1,10 +1,27 @@
 import { createGlobalStyle } from "styled-components";
-
+// #0055d1
+// #00b4ec
+// #dd4b4a
+// #fdfdfd
 const GlobalStyles = createGlobalStyle`
   * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+  }
+
+  :root {
+    --red-background: #dd4b4a;
+    --background-: #fdfdfd;
+    --background-button-color: #0055d1;
+    --border-input-color: #efeff1;
+  }
+
+  [data-theme='dark'] {
+    --red-background: #7c1717;
+    --background: #121416;
+    --background-button-color: #002a68;
+    --border-input-color: #70707f;
   }
 
   html {

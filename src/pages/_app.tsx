@@ -1,5 +1,8 @@
 import type { AppProps } from "next/app";
+
 import Head from "next/head";
+import { ThemeProvider } from "next-themes";
+
 import { GlobalStyles } from "styles/global";
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -15,7 +18,9 @@ function MyApp({ Component, pageProps }: AppProps) {
         />
       </Head>
       <GlobalStyles />
-      <Component {...pageProps} />;
+      <ThemeProvider enableSystem defaultTheme="system">
+        <Component {...pageProps} />;
+      </ThemeProvider>
     </>
   );
 }

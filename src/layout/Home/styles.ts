@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const HeaderContainer = styled.header`
   width: 100%;
   height: 10rem;
-  background-color: #dd4b4a;
+  background-color: var(--red-background);
 
   div {
     display: flex;
@@ -21,7 +21,7 @@ export const MainContainer = styled.main`
   align-items: center;
   height: calc(100vh - 12rem);
   width: 100%;
-  background-color: #fdfdfd;
+  background-color: var(--background);
 
   div {
     width: auto;
@@ -45,8 +45,8 @@ export const MainContainer = styled.main`
       width: 350px;
       padding: 1rem 2rem;
       border-radius: 4px;
-      border: 1px solid #efeff1;
-      box-shadow: 1px 1px 1px #efeff1;
+      border: 1px solid var(--border-input-color);
+      box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
       font-size: 1.5rem;
     }
 
@@ -62,8 +62,8 @@ export const MainContainer = styled.main`
       height: 3rem;
       width: 12rem;
       color: #ffffff;
-      background-color: #0055d1;
-      box-shadow: 1px 1px 1px #0055d1;
+      background-color: var(--background-button-color);
+      box-shadow: 1px 1px 1px var(--background-button-color);
       border-radius: 4px;
       font-weight: bold;
       transition: all 0.5s ease-in-out;
