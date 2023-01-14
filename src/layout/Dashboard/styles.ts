@@ -69,6 +69,13 @@ export const Nav = styled.nav`
     margin-left: 3rem;
 
     li {
+      transition: all 0.5s;
+
+      &:hover {
+        font-size: 1.8rem;
+        font-weight: bold;
+        text-decoration: underline;
+      }
       &.active {
         font-size: 1.8rem;
         font-weight: bold;

@@ -1,7 +1,9 @@
+import Link from "next/link";
 import Image from "next/image";
 import { useTheme } from "next-themes";
-
+import { useRouter } from "next/router";
 import { AiOutlineSearch } from "react-icons/ai";
+
 import * as S from "./styles";
 const navList = [
   {
@@ -390,6 +392,9 @@ const navList = [
   },
 ];
 const DashboardPage = () => {
+  const router = useRouter();
+  const { pokemon_id } = router.query;
+  const pokemonId = pokemon_id ? +pokemon_id : undefined;
   const { setTheme } = useTheme();
   return (
     <S.Container>
@@ -432,14 +437,16 @@ const DashboardPage = () => {
           <ul>
             {navList.map((item, ind) => {
               return (
-                <li key={ind} className={ind + 1 == 1 ? "active" : ""}>
-                  #
-                  {ind + 1 < 10
-                    ? `00${ind + 1}`
-                    : ind + 1 < 100
-                    ? `0${ind + 1}`
-                    : ind + 1}{" "}
-                  - {item.name}
+                <li key={ind} className={ind + 1 == pokemonId ? "active" : ""}>
+                  <Link href={`/dashboard/${ind + 1}`}>
+                    #
+                    {ind + 1 < 10
+                      ? `00${ind + 1}`
+                      : ind + 1 < 100
+                      ? `0${ind + 1}`
+                      : ind + 1}{" "}
+                    - {item.name}
+                  </Link>
                 </li>
               );
             })}
@@ -455,6 +462,8 @@ const DashboardPage = () => {
         <button onClick={() => setTheme("dark")}>dark</button>
         <button onClick={() => setTheme("light")}>light</button>
         <h1>Não tá funcionando nada :D</h1>
+        <hr />
+        <h1>#{pokemon_id} id</h1>
       </main>
     </S.Container>
   );

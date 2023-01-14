@@ -59,7 +59,7 @@ const HomePage = () => {
     await delay();
 
     setIsLoading(false);
-    router.push("/dashboard");
+    router.push("/dashboard/1");
   };
 
   return (

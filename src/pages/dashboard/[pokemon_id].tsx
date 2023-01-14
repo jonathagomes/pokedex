@@ -1,9 +1,8 @@
-import type { GetServerSideProps, NextPage } from "next";
 import { parseCookies } from "nookies";
-
 import { DashboardPage } from "layout/Dashboard";
+import type { GetServerSideProps, NextPage } from "next";
 
-const Dashboard: NextPage = () => {
+const Details: NextPage = () => {
   return <DashboardPage />;
 };
 
@@ -24,4 +23,4 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   };
 };
 
-export default Dashboard;
+export default Details;
