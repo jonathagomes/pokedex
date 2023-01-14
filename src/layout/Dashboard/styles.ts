@@ -30,6 +30,7 @@ export const Aside = styled.aside`
       border: none;
       border-radius: 20px;
       margin-top: 2rem;
+      background-color: var(--background-input-color);
     }
   }
 

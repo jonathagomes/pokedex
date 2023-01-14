@@ -12,6 +12,7 @@ const GlobalStyles = createGlobalStyle`
     --blue-background: #00b4ec;
     --background-: #fdfdfd;
     --background-button-color: #0055d1;
+    --background-input-color: #fff;
     --border-input-color: #efeff1;
   }
 
@@ -20,6 +21,7 @@ const GlobalStyles = createGlobalStyle`
     --blue-background: #001820;
     --background: #121416;
     --background-button-color: #002a68;
+    --background-input-color: #121416;
     --border-input-color: #70707f;
   }
 
