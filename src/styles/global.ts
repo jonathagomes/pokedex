@@ -9,6 +9,7 @@ const GlobalStyles = createGlobalStyle`
 
   :root {
     --red-background: #dd4b4a;
+    --blue-background: #00b4ec;
     --background-: #fdfdfd;
     --background-button-color: #0055d1;
     --border-input-color: #efeff1;
@@ -16,6 +17,7 @@ const GlobalStyles = createGlobalStyle`
 
   [data-theme='dark'] {
     --red-background: #7c1717;
+    --blue-background: #001820;
     --background: #121416;
     --background-button-color: #002a68;
     --border-input-color: #70707f;
