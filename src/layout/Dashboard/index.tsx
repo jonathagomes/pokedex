@@ -401,7 +401,6 @@ const DashboardPage = () => {
             width={297}
             height={61}
           />
-          {/* <Image src="/img/404.svg" alt="Pokedex" width={1277} height={672} /> */}
           <p>
             Everything you wanted to know about <br /> your favorite pocket
             monsters!
