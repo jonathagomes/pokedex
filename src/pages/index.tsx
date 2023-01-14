@@ -13,7 +13,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   if (email) {
     return {
       redirect: {
-        destination: "/dashboard",
+        destination: "/dashboard/1",
         permanent: false,
       },
     };
