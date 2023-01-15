@@ -1,14 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
-import Switch from "react-switch";
-import { TbSun } from "react-icons/tb";
-import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { IoMoonOutline } from "react-icons/io5";
 import { AiOutlineSearch, AiOutlineRight } from "react-icons/ai";
 
 import { useWindowSize } from "hooks/useWindowSize";
+
+import { ThemeSwitcher } from "components/ThemeSwitcher";
 
 import { colorsTypeMonsters } from "styles/colorsTypeMonsters";
 
@@ -407,19 +405,14 @@ const DashboardPage = () => {
   const { width } = useWindowSize();
   const { pokemon_id } = router.query;
   const pokemonId = pokemon_id ? +pokemon_id : undefined;
-  const { setTheme, theme } = useTheme();
 
   const formatNumber = (number = 0) => {
     return number < 10 ? `00${number}` : number < 100 ? `0${number}` : number;
   };
 
-  const handleSwitchTheme = () => {
-    if (theme == "light") {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  };
+  useEffect(() => {
+    setNavigationIsVisibility(false);
+  }, [router]);
 
   const RenderNavigationList = () => {
     return (
@@ -454,6 +447,7 @@ const DashboardPage = () => {
             Everything you wanted to know about <br /> your favorite pocket
             monsters!
           </p>
+          {width ? width < 1200 ? <ThemeSwitcher /> : null : null}
           <div className="input-search-container">
             <input placeholder="Search by name or number" />
             <AiOutlineSearch
@@ -505,30 +499,7 @@ const DashboardPage = () => {
               />
             </h1>
           </div>
-          <div className="theme-switcher-container">
-            <TbSun size={20} color="#fff" />
-            <Switch
-              onChange={handleSwitchTheme}
-              checked={theme == "dark" ? true : false}
-              uncheckedIcon={false}
-              checkedIcon={false}
-              onColor="#3f3f3f"
-              offColor="#fff"
-              onHandleColor="#fff"
-              offHandleColor="#3f3f3f"
-              height={16}
-              width={40}
-              handleDiameter={12}
-              activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
-            />
-            <IoMoonOutline
-              size={20}
-              color="#fff"
-              style={{
-                transform: "rotate(270deg)",
-              }}
-            />
-          </div>
+          {width ? width >= 1200 ? <ThemeSwitcher /> : null : null}
         </header>
         <S.Content>
           <div className="left-content">

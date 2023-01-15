@@ -9,8 +9,9 @@ export const Container = styled.div`
   width: 100%;
 
   .menu-mobile {
-    padding: 0 5rem;
+    padding: 1rem 5rem;
     background: var(--red-background);
+    color: #fff;
 
     h1 {
       display: flex;
@@ -39,13 +40,6 @@ export const Container = styled.div`
       display: flex;
       align-items: center;
     }
-
-    div.theme-switcher-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 0.5rem;
-    }
   }
 
   @media (max-width: 1200px) {
@@ -70,9 +64,8 @@ export const Aside = styled.aside`
   }
 
   div {
-    padding: 2rem 1rem 1rem 0;
-
     img {
+      margin-top: 2rem;
       transform: scale(0.8);
     }
 
@@ -92,13 +85,17 @@ export const Aside = styled.aside`
 
   hr {
     width: 80%;
-    margin: 0 auto;
+    margin: 2rem auto;
     border-radius: 20px;
     border: 1px solid #e89999;
   }
 
   @media (max-width: 1200px) {
     height: auto;
+
+    p {
+      margin-bottom: 1rem;
+    }
 
     hr {
       display: none;
