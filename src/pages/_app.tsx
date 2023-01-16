@@ -10,8 +10,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <Head>
         <title>Pokedex | Riderize</title>
-        <link rel="shortcut icon" href="icon.png" />
-        <link rel="apple-touch-icon" href="icon.png" />
+        <link rel="shortcut icon" href="/icon.png" />
+        <link rel="apple-touch-icon" href="/icon.png" />
         <meta
           name="description"
           content="A simple project starter work to with Typescript, React, NextJS and Styled Components"
