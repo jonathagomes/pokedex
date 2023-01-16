@@ -25,8 +25,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
     variables,
   );
 
-  console.log(data);
-
   if (!email) {
     return {
       redirect: {

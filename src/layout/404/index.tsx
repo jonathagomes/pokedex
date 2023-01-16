@@ -9,7 +9,7 @@ const Page404 = () => {
   return (
     <S.Container>
       <Image src="/img/404.svg" alt="Pokedex" fill />
-      <button onClick={() => router.push("/dashboard/1")}>Return</button>
+      <button onClick={() => router.back()}>Return</button>
     </S.Container>
   );
 };

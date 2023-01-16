@@ -22,7 +22,6 @@ type Props = {
 const DashboardPage = ({ pokemon }: Props) => {
   const [navigationIsVisibility, setNavigationIsVisibility] = useState(false);
   const router = useRouter();
-  console.log(pokemon);
   // const { pokemon_name } = router.query;
   const { width } = useWindowSize();
   // const pokemonId = pokemon_id ? +pokemon_id : undefined;
@@ -37,10 +36,6 @@ const DashboardPage = ({ pokemon }: Props) => {
   const inchesTotal = meters / 0.0254;
   const feets = Math.floor(inchesTotal / 12);
   const inches = Math.round(inchesTotal - 12 * feets);
-
-  console.log(inchesTotal);
-
-  console.log(feets, inches);
 
   return (
     <S.Container>

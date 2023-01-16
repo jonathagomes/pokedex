@@ -59,7 +59,7 @@ const HomePage = () => {
     await delay();
 
     setIsLoading(false);
-    router.push("/dashboard/1");
+    router.push("/dashboard/bulbasaur");
   };
 
   return (
