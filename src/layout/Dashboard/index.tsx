@@ -1,8 +1,11 @@
 import type { Pokemon } from "types/Pokemon";
 import Image from "next/image";
+import client from "graphql/client";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { AiOutlineSearch, AiOutlineRight } from "react-icons/ai";
+
+import GET_ALL_POKEMONS from "graphql/queries/getAllPokemons";
 
 import { useWindowSize } from "hooks/useWindowSize";
 
@@ -19,16 +22,41 @@ type Props = {
   pokemon: Pokemon;
 };
 
+type PokemonList = {
+  id: number;
+  name: string;
+};
+
 const DashboardPage = ({ pokemon }: Props) => {
   const [navigationIsVisibility, setNavigationIsVisibility] = useState(false);
+  const [search, setSearch] = useState("");
+  const [filteredPokemons, setFilteredPokemons] = useState<PokemonList[]>([]);
   const router = useRouter();
-  // const { pokemon_name } = router.query;
   const { width } = useWindowSize();
-  // const pokemonId = pokemon_id ? +pokemon_id : undefined;
 
   useEffect(() => {
     setNavigationIsVisibility(false);
   }, [router]);
+
+  const handleSearch = async (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value.length < 0) return;
+
+    const variables = { offset: 0, limit: 1300 };
+    let suggestion = [];
+    const { pokemons: data } = await client.request(
+      GET_ALL_POKEMONS,
+      variables,
+    );
+
+    suggestion = data.results.filter(
+      (el: PokemonList) =>
+        el.name.toLowerCase().includes(e.target.value.toLowerCase()) ||
+        el.id.toString().includes(e.target.value.toLowerCase()),
+    );
+
+    setSearch(e.target.value);
+    setFilteredPokemons(suggestion);
+  };
 
   const mainImageUrl = `${process.env.NEXT_PUBLIC_POKEAPI_SPRITES_ANIMATED_URL}/${pokemon.id}.gif`;
 
@@ -53,7 +81,11 @@ const DashboardPage = ({ pokemon }: Props) => {
           </p>
           {width ? width < 1200 ? <ThemeSwitcher /> : null : null}
           <div className="input-search-container">
-            <input placeholder="Search by name or number" />
+            <input
+              placeholder="Search by name or number"
+              onChange={handleSearch}
+              type="text"
+            />
             <AiOutlineSearch
               size={24}
               color="#747474"
@@ -71,7 +103,15 @@ const DashboardPage = ({ pokemon }: Props) => {
         </div>
         <hr />
 
-        {width ? width >= 1200 ? <Navigation /> : null : null}
+        {width ? (
+          width >= 1200 ? (
+            search.length > 0 ? (
+              <Navigation pokemonsProps={filteredPokemons} />
+            ) : (
+              <Navigation />
+            )
+          ) : null
+        ) : null}
       </S.Aside>
       {width ? (
         width < 1200 ? (
@@ -87,7 +127,13 @@ const DashboardPage = ({ pokemon }: Props) => {
               />{" "}
               Menu
             </h1>
-            {navigationIsVisibility ? <Navigation /> : null}
+            {navigationIsVisibility ? (
+              search.length > 0 ? (
+                <Navigation pokemonsProps={filteredPokemons} />
+              ) : (
+                <Navigation />
+              )
+            ) : null}
           </div>
         ) : null
       ) : null}

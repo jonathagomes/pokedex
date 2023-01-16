@@ -15,16 +15,19 @@ type PokemonList = {
   name: string;
 };
 
+type Props = {
+  pokemonsProps?: PokemonList[];
+};
+
 const limit = 50;
 
-const Navigation = () => {
+const Navigation = ({ pokemonsProps }: Props) => {
   const router = useRouter();
+  console.log("pokemonsProps", pokemonsProps);
   const { pokemon_name } = router.query;
   const [numberPage, setNumberPage] = useState(1);
   const [limitPage, setLimitPage] = useState(0);
   const [pokemons, setPokemons] = useState<PokemonList[]>([]);
-
-  // const pokemonId = pokemon_id ? +pokemon_id : undefined;
 
   const handlePreviousPokemons = () => {
     setNumberPage(numberPage - 1);
@@ -51,36 +54,55 @@ const Navigation = () => {
     getAllPokemons();
   }, [getAllPokemons]);
 
+  if (pokemonsProps?.length == 0) {
+    return <h1>Not Found!</h1>;
+  }
+
   return (
     <S.Nav id="pokemons-list">
       <ul>
-        {pokemons.map((pokemon) => {
-          return (
-            <li
-              key={pokemon.id}
-              className={pokemon.name == pokemon_name ? "active" : ""}
+        {pokemonsProps
+          ? pokemonsProps.map((pokemon) => {
+              return (
+                <li
+                  key={pokemon.id}
+                  className={pokemon.name == pokemon_name ? "active" : ""}
+                >
+                  <Link href={`/dashboard/${pokemon.name}`}>
+                    #{formatNumber(pokemon.id)}- {pokemon.name}
+                  </Link>
+                </li>
+              );
+            })
+          : pokemons.map((pokemon) => {
+              return (
+                <li
+                  key={pokemon.id}
+                  className={pokemon.name == pokemon_name ? "active" : ""}
+                >
+                  <Link href={`/dashboard/${pokemon.name}`}>
+                    #{formatNumber(pokemon.id)}- {pokemon.name}
+                  </Link>
+                </li>
+              );
+            })}
+        {!pokemonsProps ? (
+          <div className="buttons-container">
+            <button
+              onClick={() => handlePreviousPokemons()}
+              disabled={numberPage <= 1}
             >
-              <Link href={`/dashboard/${pokemon.name}`}>
-                #{formatNumber(pokemon.id)}- {pokemon.name}
-              </Link>
-            </li>
-          );
-        })}
-        <div className="buttons-container">
-          <button
-            onClick={() => handlePreviousPokemons()}
-            disabled={numberPage <= 1}
-          >
-            <AiOutlineLeft />
-          </button>
-          <button>{numberPage}</button>
-          <button
-            onClick={handleNextPokemons}
-            disabled={numberPage >= limitPage}
-          >
-            <AiOutlineRight />
-          </button>
-        </div>
+              <AiOutlineLeft />
+            </button>
+            <button>{numberPage}</button>
+            <button
+              onClick={handleNextPokemons}
+              disabled={numberPage >= limitPage}
+            >
+              <AiOutlineRight />
+            </button>
+          </div>
+        ) : null}
       </ul>
     </S.Nav>
   );
