@@ -27,16 +27,18 @@ const Navigation = ({ pokemonsProps }: Props) => {
   const { pokemon_name } = router.query;
   const [numberPage, setNumberPage] = useState(1);
   const [limitPage, setLimitPage] = useState(0);
+  const [nextOffSet, setNextOffSet] = useState(0);
+  const [prevOffSet, setPrevOffSet] = useState(0);
   const [pokemons, setPokemons] = useState<PokemonList[]>([]);
 
   const handlePreviousPokemons = () => {
     setNumberPage(numberPage - 1);
-    getAllPokemons((numberPage - 2) * limit);
+    getAllPokemons(prevOffSet);
   };
 
   const handleNextPokemons = () => {
     setNumberPage(numberPage + 1);
-    getAllPokemons(numberPage * limit);
+    getAllPokemons(nextOffSet);
   };
 
   const getAllPokemons = useCallback(async (offset = 0) => {
@@ -47,6 +49,8 @@ const Navigation = ({ pokemonsProps }: Props) => {
       variables,
     );
 
+    setNextOffSet(data.nextOffset);
+    setPrevOffSet(data.prevOffset);
     setLimitPage(data.count / limit);
     setPokemons(data.results);
     setLoading(false);

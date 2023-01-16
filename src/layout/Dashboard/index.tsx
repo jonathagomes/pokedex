@@ -65,6 +65,10 @@ const DashboardPage = ({ pokemon }: Props) => {
   const feets = Math.floor(inchesTotal / 12);
   const inches = Math.round(inchesTotal - 12 * feets);
 
+  if (!pokemon) {
+    return <h1>Loading...</h1>;
+  }
+
   return (
     <S.Container>
       <S.Aside>
