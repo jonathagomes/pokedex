@@ -23,7 +23,7 @@ const limit = 50;
 
 const Navigation = ({ pokemonsProps }: Props) => {
   const router = useRouter();
-  console.log("pokemonsProps", pokemonsProps);
+  const [loading, setLoading] = useState(true);
   const { pokemon_name } = router.query;
   const [numberPage, setNumberPage] = useState(1);
   const [limitPage, setLimitPage] = useState(0);
@@ -40,6 +40,7 @@ const Navigation = ({ pokemonsProps }: Props) => {
   };
 
   const getAllPokemons = useCallback(async (offset = 0) => {
+    setLoading(true);
     const variables = { offset, limit };
     const { pokemons: data } = await client.request(
       GET_ALL_POKEMONS,
@@ -48,6 +49,7 @@ const Navigation = ({ pokemonsProps }: Props) => {
 
     setLimitPage(data.count / limit);
     setPokemons(data.results);
+    setLoading(false);
   }, []);
 
   useEffect(() => {
@@ -56,6 +58,10 @@ const Navigation = ({ pokemonsProps }: Props) => {
 
   if (pokemonsProps?.length == 0) {
     return <h1>Not Found!</h1>;
+  }
+
+  if (loading) {
+    return <h1>Loading...</h1>;
   }
 
   return (
