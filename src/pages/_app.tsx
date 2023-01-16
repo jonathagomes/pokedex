@@ -1,7 +1,5 @@
 import type { AppProps } from "next/app";
 
-import { ApolloProvider } from "@apollo/client";
-import client from "graphql/client";
 import Head from "next/head";
 import { ThemeProvider } from "next-themes";
 
@@ -21,9 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Head>
       <GlobalStyles />
       <ThemeProvider enableSystem defaultTheme="system">
-        <ApolloProvider client={client}>
-          <Component {...pageProps} />
-        </ApolloProvider>
+        <Component {...pageProps} />
       </ThemeProvider>
     </>
   );
