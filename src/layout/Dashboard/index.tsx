@@ -235,21 +235,21 @@ const DashboardPage = ({ pokemon }: Props) => {
               <div className="evolution-container">
                 <div className="image-evolution">
                   <Image
-                    src="/img/pokemon.png"
-                    alt="Pokemon name"
+                    src={mainImageUrl}
+                    alt={pokemon.name}
                     height={128}
                     width={128}
                   />
-                  <span>Bulbasaur</span>
+                  <span>{pokemon.name}</span>
                 </div>
                 <div className="image-evolution">
                   <Image
-                    src="/img/pokemon.png"
-                    alt="Pokemon name"
+                    src={mainImageUrl}
+                    alt={pokemon.name}
                     height={128}
                     width={128}
                   />
-                  <span>Bulbasaur</span>
+                  <span>{pokemon.name}</span>
                 </div>
               </div>
             </S.Card>
