@@ -58,7 +58,7 @@ const DashboardPage = ({ pokemon }: Props) => {
     setFilteredPokemons(suggestion);
   };
 
-  const mainImageUrl = `${process.env.NEXT_PUBLIC_POKEAPI_SPRITES_ANIMATED_URL}/${pokemon.id}.gif`;
+  const mainImageUrl = `${process.env.NEXT_PUBLIC_POKEAPI_SPRITES_ANIMATED_URL}/${pokemon.id}.png`;
 
   const meters = pokemon.height / 10;
   const inchesTotal = meters / 0.0254;
@@ -88,6 +88,8 @@ const DashboardPage = ({ pokemon }: Props) => {
             <input
               placeholder="Search by name or number"
               onChange={handleSearch}
+              onFocus={() => setNavigationIsVisibility(true)}
+              onBlur={() => console.log("desfocou")}
               type="text"
             />
             <AiOutlineSearch
@@ -146,13 +148,18 @@ const DashboardPage = ({ pokemon }: Props) => {
         <header>
           <div>
             <h1>
-              #{formatNumber(pokemon.id)} - {pokemon.name}{" "}
-              <Image
-                src={pokemon.sprites.front_default}
-                alt={pokemon.name}
-                height={100}
-                width={100}
-              />
+              #{formatNumber(pokemon.id)}{" "}
+              {width ? width > 720 ? "-" : <br /> : null} {pokemon.name}{" "}
+              {width ? (
+                width > 720 ? (
+                  <Image
+                    src={pokemon.sprites.front_default}
+                    alt={pokemon.name}
+                    height={100}
+                    width={100}
+                  />
+                ) : null
+              ) : null}
             </h1>
           </div>
           {width ? width >= 1200 ? <ThemeSwitcher /> : null : null}

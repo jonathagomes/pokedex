@@ -44,9 +44,10 @@ export const Container = styled.div`
 
   @media (max-width: 1200px) {
     flex-direction: column;
-
-    h1 {
-      font-size: 2rem;
+    main {
+      h1 {
+        font-size: 2rem;
+      }
     }
   }
 `;
