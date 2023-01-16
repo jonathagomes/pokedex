@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 type BadgeProps = {
-  bg: string;
+  bg: string | (() => string);
 };
 
 export const Container = styled.div`
@@ -103,52 +103,6 @@ export const Aside = styled.aside`
   }
 `;
 
-export const Nav = styled.nav`
-  height: calc(100vh - 25rem);
-  overflow-y: scroll;
-  margin-top: 2rem;
-  text-align: left;
-  font-size: 1.6rem;
-
-  &::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  &::-webkit-scrollbar-track {
-    background: #fff;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: #07053c;
-    border-radius: 20px;
-    border: 3px solid #fff;
-  }
-
-  ul {
-    display: flex;
-    flex-direction: column;
-    list-style: none;
-    gap: 1rem;
-
-    margin-left: 3rem;
-
-    li {
-      transition: all 0.5s;
-
-      &:hover {
-        font-size: 1.8rem;
-        font-weight: bold;
-        text-decoration: underline;
-      }
-      &.active {
-        font-size: 1.8rem;
-        font-weight: bold;
-        text-decoration: underline;
-      }
-    }
-  }
-`;
-
 export const Content = styled.div`
   display: flex;
   gap: 6rem;
@@ -162,6 +116,7 @@ export const Content = styled.div`
 
   div.height-weight-container {
     display: flex;
+    font-size: 1.4rem;
     gap: 0 2rem;
 
     @media (max-width: 600px) {
@@ -214,4 +169,5 @@ export const Badge = styled.div<BadgeProps>`
   color: #fff;
   padding: 0.1rem 2rem;
   text-align: center;
+  font-size: 1.4rem;
 `;

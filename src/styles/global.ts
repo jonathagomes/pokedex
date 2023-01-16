@@ -44,6 +44,10 @@ const GlobalStyles = createGlobalStyle`
     border: none;
     cursor: pointer;
   }
+
+  :disabled {
+    cursor: not-allowed;
+  }
 `;
 
 export { GlobalStyles };

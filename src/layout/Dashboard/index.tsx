@@ -1,437 +1,46 @@
-import Link from "next/link";
+import type { Pokemon } from "types/Pokemon";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { AiOutlineSearch, AiOutlineRight } from "react-icons/ai";
 
 import { useWindowSize } from "hooks/useWindowSize";
 
 import { ThemeSwitcher } from "components/ThemeSwitcher";
+import { Navigation } from "components/Navigation";
+
+import { formatNumber } from "utils/formatNumber";
 
 import { colorsTypeMonsters } from "styles/colorsTypeMonsters";
 
 import * as S from "./styles";
 
-const navList = [
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-  {
-    name: "Bulbasaur",
-  },
-];
+type Props = {
+  pokemon: Pokemon;
+};
 
-const DashboardPage = () => {
+const DashboardPage = ({ pokemon }: Props) => {
   const [navigationIsVisibility, setNavigationIsVisibility] = useState(false);
   const router = useRouter();
+  console.log(pokemon);
+  // const { pokemon_name } = router.query;
   const { width } = useWindowSize();
-  const { pokemon_id } = router.query;
-  const pokemonId = pokemon_id ? +pokemon_id : undefined;
-
-  const formatNumber = (number = 0) => {
-    return number < 10 ? `00${number}` : number < 100 ? `0${number}` : number;
-  };
+  // const pokemonId = pokemon_id ? +pokemon_id : undefined;
 
   useEffect(() => {
     setNavigationIsVisibility(false);
   }, [router]);
 
-  const RenderNavigationList = () => {
-    return (
-      <S.Nav>
-        <ul>
-          {navList.map((item, ind) => {
-            return (
-              <li key={ind} className={ind + 1 == pokemonId ? "active" : ""}>
-                <Link href={`/dashboard/${ind + 1}`}>
-                  #{formatNumber(ind + 1)}- {item.name}
-                </Link>
-              </li>
-            );
-          })}
-          #TODO PAGINAÇÃO
-        </ul>
-      </S.Nav>
-    );
-  };
+  const mainImageUrl = `${process.env.NEXT_PUBLIC_POKEAPI_SPRITES_ANIMATED_URL}/${pokemon.id}.gif`;
+
+  const meters = pokemon.height / 10;
+  const inchesTotal = meters / 0.0254;
+  const feets = Math.floor(inchesTotal / 12);
+  const inches = Math.round(inchesTotal - 12 * feets);
+
+  console.log(inchesTotal);
+
+  console.log(feets, inches);
 
   return (
     <S.Container>
@@ -466,7 +75,8 @@ const DashboardPage = () => {
           </div>
         </div>
         <hr />
-        {width ? width >= 1200 ? <RenderNavigationList /> : null : null}
+
+        {width ? width >= 1200 ? <Navigation /> : null : null}
       </S.Aside>
       {width ? (
         width < 1200 ? (
@@ -482,18 +92,19 @@ const DashboardPage = () => {
               />{" "}
               Menu
             </h1>
-            {navigationIsVisibility ? <RenderNavigationList /> : null}
+            {navigationIsVisibility ? <Navigation /> : null}
           </div>
         ) : null
       ) : null}
+
       <main>
         <header>
           <div>
             <h1>
-              #{formatNumber(pokemonId)} - Bulbasaur{" "}
+              #{formatNumber(pokemon.id)} - {pokemon.name}{" "}
               <Image
-                src="/img/icon-pokemon.png"
-                alt="Pokemon name"
+                src={pokemon.sprites.front_default}
+                alt={pokemon.name}
                 height={100}
                 width={100}
               />
@@ -506,27 +117,38 @@ const DashboardPage = () => {
             <S.Card
               className="main-image"
               style={{
-                padding: "0 8rem",
+                padding: "2rem 8rem",
               }}
             >
               <Image
-                src="/img/pokemon.png"
-                alt="Pokemon name"
+                src={mainImageUrl}
+                alt={pokemon.name}
                 height={256}
                 width={256}
               />
             </S.Card>
             <S.Card>
               <b>Type</b>
-              <S.Badge bg={colorsTypeMonsters["grass"]}>Grass</S.Badge>
-              <S.Badge bg={colorsTypeMonsters["poison"]}>Poison</S.Badge>
+              {pokemon.types.map(({ type }, index) => {
+                return (
+                  <S.Badge
+                    key={index + Date.now()}
+                    bg={colorsTypeMonsters[type.name]}
+                  >
+                    {type.name}
+                  </S.Badge>
+                );
+              })}
             </S.Card>
             <div className="height-weight-container">
               <S.Card style={{ gap: "0" }}>
-                <b>Height:</b> 2&apos;04&apos;&apos; / 0.7 m
+                <b>Height: </b> {feets > 0 ? feets : -feets}
+                &apos;{inches > 0 ? inches : -inches}&apos;&apos; /{" "}
+                {pokemon.height ? pokemon.height / 10 : "0"} m
               </S.Card>
               <S.Card style={{ gap: "0" }}>
-                <b>Weight:</b> 15.lbs. / 6.9kg
+                <b>Weight: </b> {((pokemon.weight / 10) * 2.205).toFixed(1)}lbs.
+                / {pokemon.weight ? pokemon.weight / 10 : "0"}kg
               </S.Card>
             </div>
             <S.Card
@@ -536,12 +158,18 @@ const DashboardPage = () => {
             >
               <b>Attributes</b>
               <div className="attributes-container">
-                <S.Badge bg="#ff5958">45 Hp</S.Badge>
-                <S.Badge bg="#ff76a2">45 Speed</S.Badge>
-                <S.Badge bg="#ff9a58">45 Atk</S.Badge>
-                <S.Badge bg="#ffca00">45 Def</S.Badge>
-                <S.Badge bg="#006dea">45 Sp. Atk.</S.Badge>
-                <S.Badge bg="#4cc752">45 Sp. Def.</S.Badge>
+                <S.Badge bg="#ff5958">{pokemon.stats[0].base_stat} Hp</S.Badge>
+                <S.Badge bg="#ff76a2">
+                  {pokemon.stats[5].base_stat} Speed
+                </S.Badge>
+                <S.Badge bg="#ff9a58">{pokemon.stats[1].base_stat} Atk</S.Badge>
+                <S.Badge bg="#ffca00">{pokemon.stats[2].base_stat} Def</S.Badge>
+                <S.Badge bg="#006dea">
+                  {pokemon.stats[3].base_stat} Sp. Atk.
+                </S.Badge>
+                <S.Badge bg="#4cc752">
+                  {pokemon.stats[4].base_stat} Sp. Def.
+                </S.Badge>
               </div>
             </S.Card>
           </div>
@@ -579,13 +207,6 @@ const DashboardPage = () => {
                 minHeight: "30rem",
               }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti
-              ullam eos expedita labore quasi, laborum cupiditate debitis quidem
-              inventore, officiis qui rem repellat sed atque ex enim quisquam,
-              facilis ipsa.
-              <br />
-              <br />
-              <br />
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti
               ullam eos expedita labore quasi, laborum cupiditate debitis quidem
               inventore, officiis qui rem repellat sed atque ex enim quisquam,

@@ -6,8 +6,19 @@ const GET_SPECIFIC_POKEMON = /* GraphQL */ `
       height
       weight
       status
+      stats {
+        base_stat
+        stat {
+          name
+        }
+      }
       sprites {
         front_default
+      }
+      types {
+        type {
+          name
+        }
       }
     }
   }
