@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Pokedex | Riderize</title>
+        <title>Pokedex</title>
         <link rel="shortcut icon" href="/icon.png" />
         <link rel="apple-touch-icon" href="/icon.png" />
         <meta
