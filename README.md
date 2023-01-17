@@ -51,5 +51,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - `lint`: runs the linter in all components and pages
 
 <center>
+
   Made With ❤ by John Gomes
+
 </center>
