@@ -110,7 +110,7 @@ const DashboardPage = ({ pokemon }: Props) => {
                 boxSizing: "border-box",
                 top: "50%",
                 right: "15%",
-                transform: "translateY(calc(50% - 1rem))",
+                transform: "translateY(calc(50% - 1.4rem))",
               }}
             />
           </div>

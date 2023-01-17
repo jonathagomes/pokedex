@@ -55,7 +55,7 @@ export const Container = styled.div`
 export const Aside = styled.aside`
   background-color: var(--red-background);
   min-width: 300px;
-  height: 100vh;
+  min-height: 100vh;
   overflow: hidden;
   text-align: center;
   color: #fff;
@@ -92,7 +92,7 @@ export const Aside = styled.aside`
   }
 
   @media (max-width: 1200px) {
-    height: auto;
+    min-height: auto;
 
     p {
       margin-bottom: 1rem;
