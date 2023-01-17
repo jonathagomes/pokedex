@@ -1,9 +1,8 @@
-<center>
-
 ![Pokemon logo](.github/logo-pokedex.png)
 
 A simple project starter work to with Typescript, React, NextJS, Styled Components and GraphQL
-</center>
+
+![Mockup](.github/mockup.png)
 
 This project uses lot of stuff as:
 
