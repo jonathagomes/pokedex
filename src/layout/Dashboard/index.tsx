@@ -31,12 +31,22 @@ const DashboardPage = ({ pokemon }: Props) => {
   const [navigationIsVisibility, setNavigationIsVisibility] = useState(false);
   const [search, setSearch] = useState("");
   const [filteredPokemons, setFilteredPokemons] = useState<PokemonList[]>([]);
+  const [mainImageUrl, setMainImageUrl] = useState(
+    `${process.env.NEXT_PUBLIC_POKEAPI_SPRITES_URL}/${pokemon.id}.png`,
+  );
   const router = useRouter();
   const { width } = useWindowSize();
 
   useEffect(() => {
     setNavigationIsVisibility(false);
-  }, [router]);
+    setMainImageUrl(
+      `${process.env.NEXT_PUBLIC_POKEAPI_SPRITES_URL}/${pokemon.id}.png`,
+    );
+  }, [router, pokemon]);
+
+  const fixMainImageUrl = () => {
+    setMainImageUrl(`${process.env.NEXT_PUBLIC_POKEAPI_SPRITES_URL}/0.png`);
+  };
 
   const handleSearch = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length < 0) return;
@@ -57,8 +67,6 @@ const DashboardPage = ({ pokemon }: Props) => {
     setSearch(e.target.value);
     setFilteredPokemons(suggestion);
   };
-
-  const mainImageUrl = `${process.env.NEXT_PUBLIC_POKEAPI_SPRITES_ANIMATED_URL}/${pokemon.id}.png`;
 
   const meters = pokemon.height / 10;
   const inchesTotal = meters / 0.0254;
@@ -153,7 +161,10 @@ const DashboardPage = ({ pokemon }: Props) => {
               {width ? (
                 width > 720 ? (
                   <Image
-                    src={pokemon.sprites.front_default}
+                    src={
+                      pokemon.sprites.front_default ||
+                      `${process.env.NEXT_PUBLIC_POKEAPI_SPRITES_URL}/0.png`
+                    }
                     alt={pokemon.name}
                     height={100}
                     width={100}
@@ -177,6 +188,16 @@ const DashboardPage = ({ pokemon }: Props) => {
                 alt={pokemon.name}
                 height={256}
                 width={256}
+                onLoadingComplete={(result) => {
+                  if (result.naturalWidth === 0) {
+                    fixMainImageUrl();
+                    alert(`The pokemon ${pokemon.name} has no official photos`);
+                  }
+                }}
+                onError={() => {
+                  fixMainImageUrl();
+                  alert(`The pokemon ${pokemon.name} has no official photos`);
+                }}
               />
             </S.Card>
             <S.Card>
@@ -239,6 +260,14 @@ const DashboardPage = ({ pokemon }: Props) => {
                     alt={pokemon.name}
                     height={128}
                     width={128}
+                    onLoadingComplete={(result) => {
+                      if (result.naturalWidth === 0) {
+                        fixMainImageUrl();
+                      }
+                    }}
+                    onError={() => {
+                      fixMainImageUrl();
+                    }}
                   />
                   <span>{pokemon.name}</span>
                 </div>
@@ -248,6 +277,14 @@ const DashboardPage = ({ pokemon }: Props) => {
                     alt={pokemon.name}
                     height={128}
                     width={128}
+                    onLoadingComplete={(result) => {
+                      if (result.naturalWidth === 0) {
+                        fixMainImageUrl();
+                      }
+                    }}
+                    onError={() => {
+                      fixMainImageUrl();
+                    }}
                   />
                   <span>{pokemon.name}</span>
                 </div>
